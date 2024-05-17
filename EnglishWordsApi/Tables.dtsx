@@ -1,0 +1,75 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/15/2024 10:20:07 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-54L8G8U"
+  DTS:CreatorName="DESKTOP-54L8G8U\Cristian"
+  DTS:DTSID="{8100D68E-B525-42B6-98AD-46905DBC60FE}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="9226"
+  DTS:ObjectName="Tables"
+  DTS:PackageType="5"
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{AABB8AB9-6F6B-48F5-9169-A59F678871BE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.zim.postgres]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{06AA0A6C-D2AE-469C-8D7D-995A54EC7A78}"
+      DTS:ObjectName="localhost.zim.postgres">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="server=localhost;uid=postgres;Dsn=PostgreSQL35W;database=zim;port=5432;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;lfconversion=1;updatablecursors=1;trueisminus1=0;bi=0;byteaaslongvarbinary=1;useserversideprepare=1;lowercaseidentifier=0;d6=-101;optionalerrors=0;fetchrefcursors=0;xaopt=1;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAEzXcsDAaI06VVKq6ixAtwAAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABM8FwyfkxqN1x2IFMRkPZksZspf6J6VccJVs9Geal5lgAAAAAOgAAAAAIAACAAAAD8TEk9IUx1O8lBdkyzHnkBVlyAOY+AiOGX5bcjV+LtJiAAAAB+klY4opW1Ajg6uJdMUQ/efbVKvmUsSO0oOMfrJBqzyEAAAAAE/qgtTLoR/y/TJzwzseqaH7Zv3sBz7XGLmSrKLCzpPw5vNJPCS2CLpmq7o5foz1LsRXsP3iKT4TWnv4srDpAM</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{de67b5c5-2da8-4eb8-a77a-13a9750db512}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{06AA0A6C-D2AE-469C-8D7D-995A54EC7A78}"
+          SQLTask:SqlStatementSource="CREATE TABLE IF NOT EXISTS palabra (&#xA;                id SERIAL PRIMARY KEY,&#xA;                palabra VARCHAR(100) UNIQUE NOT NULL,&#xA;                dificultad_promedio VARCHAR(15)&#xA;            );&#xA;&#xA;CREATE TABLE IF NOT EXISTS tmp (&#xA;               &#x9;id SERIAL PRIMARY KEY,&#xA;               &#x9;word VARCHAR(100) NOT NULL,&#xA;               &#x9;part_of_speach VARCHAR(20) NOT NULL,&#xA;&#x9;definition TEXT NOT NULL,&#xA;&#x9;example TEXT,&#xA;&#x9;source_url VARCHAR(65)&#xA;            );&#xA;&#xA;CREATE TABLE IF NOT EXISTS categoria_gramatical (&#xA;               &#x9;id SERIAL PRIMARY KEY,&#xA;               &#x9;categoria VARCHAR(20) UNIQUE NOT NULL&#xA;            );&#xA;&#xA;CREATE TABLE IF NOT EXISTS definicion (&#xA;               &#x9;id SERIAL PRIMARY KEY,&#xA;               &#x9;definicion TEXT NOT NULL,&#xA;&#x9;palabra_id INT NOT NULL,&#xA;&#x9;categoria_gramatical_id INT NOT NULL,&#xA;FOREIGN KEY (categoria_gramatical_id) REFERENCES categoria_gramatical(id) ON UPDATE CASCADE ON DELETE CASCADE,&#xA;FOREIGN KEY (palabra_id) REFERENCES palabra(id) ON UPDATE CASCADE ON DELETE CASCADE,&#xA;CONSTRAINT uk_definicion_palabra_categoria_definicion UNIQUE (palabra_id, categoria_gramatical_id, definicion)&#xA;            );&#xA;&#xA;CREATE TABLE IF NOT EXISTS ejemplo (&#xA;               &#x9;id SERIAL PRIMARY KEY,&#xA;               &#x9;ejemplo TEXT NOT NULL,&#xA;&#x9;palabra_id INT NOT NULL,&#xA;FOREIGN KEY (palabra_id) REFERENCES palabra(id) ON UPDATE CASCADE ON DELETE CASCADE,&#xA;CONSTRAINT uk_ejemplo_palabra UNIQUE (palabra_id, ejemplo)&#xA;            );" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="146.666666666667,42.6666666666667"
+          Id="Package\Create Tables"
+          TopLeft="309.99998614192,175.157892813643" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
